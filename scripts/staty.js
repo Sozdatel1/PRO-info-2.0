@@ -61,13 +61,17 @@ let allPostsData = [];
 // async function loadPosts() {
 //     const grid = document.getElementById('dynamic-cards'); // Берем твоюсетку
 //     if (!grid) return;
-
+let displayedCount = 9; 
 // 1. Функция-"рисовальщик" (она должна быть видна всем)
 function renderFilteredPosts(postsToRender) {
     const grid = document.getElementById('dynamic-cards');
+    const loadMoreContainer = document.getElementById('load-more-container');
     if (!grid) return;
 
-    grid.innerHTML = postsToRender.map(post => {
+
+    const partToRender = postsToRender.slice(0, displayedCount);
+
+    grid.innerHTML =  partToRender.map(post => {
         const category = getAutoCategory(post.title);
         return `
    
@@ -104,7 +108,38 @@ function renderFilteredPosts(postsToRender) {
         </div>
     </a>
 `}).join('');
+    if (loadMoreContainer) {
+        if (displayedCount >= postsToRender.length) {
+            loadMoreContainer.style.display = 'none';
+        } else {
+            loadMoreContainer.style.display = 'block';
+        }
     }
+const cards = document.querySelectorAll('.news-card');
+cards.forEach((card, index) => {
+    setTimeout(() => {
+        card.classList.add('visible');
+    }, index * 200); // Каждая следующая карточка на 0.1 сек позже
+});
+    }
+
+
+
+// 2. ФУНКЦИЯ ДЛЯ КНОПКИ "ПОКАЗАТЬ ЕЩЕ"
+function loadMore() {
+    displayedCount += 9; // Прибавляем 9
+    // Чтобы кнопка работала с учетом фильтра, нам нужно знать, какой тег сейчас выбран
+    const activeBtn = document.querySelector('.filter-btn.active');
+    const currentTag = activeBtn ? activeBtn.innerText.replace('#', '') : 'Все';
+    
+    // Фильтруем данные заново и рисуем новую порцию
+    const filtered = (currentTag === 'Все') 
+        ? allPostsData 
+        : allPostsData.filter(post => getAutoCategory(post.title) === currentTag);
+        
+    renderFilteredPosts(filtered);
+}
+
 // 2. Функция загрузки (теперь она чистая и аккуратная)
 async function loadPosts() {
     try {
@@ -124,6 +159,7 @@ async function loadPosts() {
 // 3. Функция фильтрации (вызывается при клике на кнопки в HTML)
 function filterByTag(tag, button) {
     // Подсветка кнопок
+    displayedCount = 9;
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
 

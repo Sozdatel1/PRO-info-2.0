@@ -67,7 +67,7 @@
             border-radius: 15px;
             padding: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgb(171, 170, 170);
             margin-bottom: 20px;
         }
 
@@ -124,9 +124,9 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none !important;
             color: inherit;
-           
-            
-            
+
+
+            opacity: 0;
             transform: translateY(20px);
 
             /* 2. ЕДИНЫЙ ТРАНЗИШН ДЛЯ ВСЕГО */
@@ -137,17 +137,18 @@
 
         }
 
-       .news-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+        .news-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-/* ЭФФЕКТ ПРИ НАВЕДЕНИИ (Теперь он не будет конфликтовать) */
-.news-card.visible:hover {
-    border-color: var(--accent);
-    transform: translateY(-8px); /* Чуть выше при наведении */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
+        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ (Теперь он не будет конфликтовать) */
+        .news-card.visible:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            /* Чуть выше при наведении */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
 
         .card-icon {
             width: 100%;
@@ -261,3 +262,30 @@
         .news-card p {
             /* Если тут стоит opacity: 0, тег выше (auto-tag) всё равно будет виден из-за !important */
         }
+
+        /* Контейнер кнопки */
+#load-more-container {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Сама кнопка (используем твой стиль filter-btn) */
+#load-more-container button {
+    background: #41cfff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(65, 207, 255, 0.4);
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#load-more-container button:hover {
+    transform: scale(1.05);
+    background: #00ff41; /* При наведении станет зеленой как неон! */
+    box-shadow: 0 6px 20px rgba(0, 255, 65, 0.4);
+}

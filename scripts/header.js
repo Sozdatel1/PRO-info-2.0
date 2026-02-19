@@ -37,7 +37,7 @@ if (header) {
                     <li><a href="https://github.com/Sozdatel1/Sozdatel1.github.io">Исходный код</a></li>
                 </ul>
             </li>
-            <li><a href="why.html">О сайте</a></li>
+            
         </ul>
        
 
