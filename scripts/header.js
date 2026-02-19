@@ -5,7 +5,7 @@ if (header) {
 <header class="header-content">
     <div class="logo">
         <a href="index.html">
-            <img src="img/Логотип.png" alt="PRO-info" width="250">
+            
         </a>
     </div>
 
@@ -56,13 +56,7 @@ if (header) {
 
 
 
-<div class="tema">
-<p>Тёмная тема</p>
-<label class="switch">
-<input type="checkbox" class="theme-checkbox">
-<span class="slider"></span>
-</label>
-</div>
+
 <div id="scrollProgress"></div>
 </header>
 
@@ -92,33 +86,5 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true }); // passive: true повышает плавность скролла
 });
-
-// Массив с твоими личными "баффами"
-const phrases = [
-    "Твой код чище, чем совесть отличника! 💻",
-    "Ошибка 404: Грусть не найдена. Работаем дальше! 🚀",
-    "Даже самый сложный баг фиксится, если не сдаваться!",
-];
-
-function showSupport() {
-    // Выбираем случайную фразу
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-    
-    // Выводим через SweetAlert2
-    Swal.fire({
-        title: 'Сигнал от системы:',
-        text: randomPhrase,
-        icon: 'info',
-        confirmButtonText: 'Понял, принял!',
-        confirmButtonColor: '#3085d6',
-        backdrop: `
-        rgba(0,0,123,0.4)
-          url("https://media.giphy.com")
-          left top
-          no-repeat
-        ` // Добавил немного магии с гифкой на фоне
-    });
-}
-
 
 

@@ -66,37 +66,37 @@ function checkHoliday() {
 // Запускаем при загрузке страницы
 window.onload = checkHoliday;
 
-const snowContainer = document.getElementById('snow');
+// const snowContainer = document.getElementById('snow');
 
-function createSnowflake() {
-  const snowflake = document.createElement('div');
-  snowflake.className = 'snowflake';
+// function createSnowflake() {
+//   const snowflake = document.createElement('div');
+//   snowflake.className = 'snowflake';
 
-  // Устанавливаем случайный начальный горизонтальный смещающий эффект
-  const size = Math.random() * 4 + 4; // Размер снежинки
-  snowflake.style.width = size + 'px';
-  snowflake.style.height = size + 'px';
+//   // Устанавливаем случайный начальный горизонтальный смещающий эффект
+//   const size = Math.random() * 4 + 4; // Размер снежинки
+//   snowflake.style.width = size + 'px';
+//   snowflake.style.height = size + 'px';
 
-  //   // Начальная позиция по горизонтали
-  snowflake.style.left = Math.random() * 100 + '%';
+//   //   // Начальная позиция по горизонтали
+//   snowflake.style.left = Math.random() * 100 + '%';
 
-  //   // Продолжительность падения
-  const duration = Math.random() * 10 + 10; // от 10 до 20 секунд
-  snowflake.style.animationDuration = duration + 's';
+//   //   // Продолжительность падения
+//   const duration = Math.random() * 10 + 10; // от 10 до 20 секунд
+//   snowflake.style.animationDuration = duration + 's';
 
-  //   // Начальная задержка, чтобы снежинки не падали одновременно
-  snowflake.style.animationDelay = Math.random() * 5 + 's';
+//   //   // Начальная задержка, чтобы снежинки не падали одновременно
+//   snowflake.style.animationDelay = Math.random() * 5 + 's';
 
-  snowContainer.appendChild(snowflake);
+//   snowContainer.appendChild(snowflake);
 
-  //   // Удаляем снежинку после окончания анимации
-  setTimeout(() => {
-    snowflake.remove();
-  }, duration * 1000);
-}
+//   //   // Удаляем снежинку после окончания анимации
+//   setTimeout(() => {
+//     snowflake.remove();
+//   }, duration * 1000);
+// }
 
-// // Создавать снежинки регулярно
-setInterval(createSnowflake, 100);
+// // // Создавать снежинки регулярно
+// setInterval(createSnowflake, 100);
 
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,12 +1,28 @@
-window.addEventListener('scroll', () => {
-    const progress = document.getElementById("scrollProgress");
-    if (!progress) return;
+(function() {
+    function paint() {
+        const progress = document.getElementById("scrollProgress");
+        if (!progress) {
+            requestAnimationFrame(paint);
+            return;
+        }
 
-    // Считаем, сколько прокручено в процентах
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
+        // Берем скролл отовсюду, где он может быть
+        const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        
+        // Берем МАКСИМАЛЬНУЮ высоту, которую найдем
+        const height = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        ) - window.innerHeight;
 
-    // Обновляем ширину полоски
-    progress.style.width = scrolled + "%";
-});
+        if (height > 0) {
+            const scrolled = (winScroll / height) * 100;
+            progress.style.width = scrolled + "%";
+        }
+
+        requestAnimationFrame(paint); // Зацикливаем проверку
+    }
+    paint();
+})();
+

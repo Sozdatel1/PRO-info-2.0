@@ -78,7 +78,13 @@ async function loadPosts() {
             </div>
             <p>
                 <strong>${post.title}</strong><br>
-                <span style="font-size: 10px; opacity: 0.5;">Читать статью...</span>
+                <span style="  font-size: 10px; 
+    opacity: 0.5; 
+    display: block;
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden;   
+    text-overflow: ellipsis; /* Рисует три точки, если текст слишком длинный */">Читать статью...</span>
             </p>
         </div>
     </a>
@@ -113,6 +119,9 @@ async function loadFullArticle() {
         // Чтобы абзацы отображались корректно, заменяем переносы строк на <br>
         document.getElementById('artText').innerHTML = article.text.replace(/\n/g, '<br>');
         // --- ДОБАВЬ ЭТИ СТРОКИ НИЖЕ ---
+    setTimeout(() => {
+    if (window.updateScrollProgress) window.updateScrollProgress();
+}, 5000); // Половина секунды подождем, пока браузер отрисует текст
 
         const likeSpan = document.getElementById('artLikes');
         const likeBtn = document.getElementById('likeBtn');
