@@ -40,14 +40,17 @@ async function publishPost() {
         alert("Ошибка сервера: " + response.status);
     }
 }
+// -------------------------------------------------------------------------
 
 
 
-function getAutoCategory(title, content ='') {
-     const source = (title + ' ' + content).toLowerCase().trim();
+// ФУНКЦИЯ КОТОРАЯ СОДЕРЖИТ СЛОВА ПО КОТОРЫМ РАСПРЕДЕЛЯЮТСЯ СТАТЬИ ПО ТЭГАМ
+
+function getAutoCategory(title, content = '') {
+    const source = (title + ' ' + content).toLowerCase().trim();
     if (!source) return 'Инфо';
 
-     const keywordsMap = {
+    const keywordsMap = {
         'Код': ['код', 'js', 'html', 'css', 'скрипт', 'прогр', 'dev', 'api', 'сайт', 'проб', 'язык'],
         'Технологии': ['техн', 'соверш', 'steam', 'гейм', 'minecraft', 'cs', 'dota', 'xbox', 'пс5', 'плей'],
         'Природа': ['капибар', 'животн', 'кот', 'пес', 'лес', 'природ', 'море', 'птиц', 'эко', 'океан'],
@@ -65,15 +68,22 @@ function getAutoCategory(title, content ='') {
 
     return 'Инфо';
 }
+// -------------------------------------------------------------------------
 
-let allPostsData = []; 
+
+let allPostsData = [];
 
 // async function loadPosts() {
 //     const grid = document.getElementById('dynamic-cards'); // Берем твоюсетку
 //     if (!grid) return;
-let displayedCount = 9; 
-// 1. Функция-"рисовальщик" (она должна быть видна всем)
-function renderFilteredPosts(postsToRender , append = false) {
+let displayedCount = 8;
+
+
+
+// ФУНКЦИЯ КОТОРАЯ БУДЕТ ОТРИСОВЫВАТЬ КАРТОЧКИ СТАТЕЙ В ЛЕНТЕ КАК ТОЛЬКО ФУНКЦИЯ ЛОАД ПОСТС СКАЧАЕТ ФАЙЛ ПОСТС ДЖСОН ИЗ ГИТХАБ В МАССИВ АЛЛ ПОСТ ДАТА
+
+function renderFilteredPosts(postsToRender, append = false) {
+
     const grid = document.getElementById('dynamic-cards');
     const loadMoreContainer = document.getElementById('load-more-container');
     if (!grid) return;
@@ -85,8 +95,8 @@ function renderFilteredPosts(postsToRender , append = false) {
     //     const category = getAutoCategory(post.title);
     //     return `
     const postsHtml = dataToDraw.map(post => {
-        
-const category = getAutoCategory(post.title, post.text); // ТЕПЕРЬ ПЕРЕДАЕМ И ТЕКСТ!
+
+        const category = getAutoCategory(post.title, post.text); // ТЕПЕРЬ ПЕРЕДАЕМ И ТЕКСТ!
 
         return `
    
@@ -124,93 +134,83 @@ const category = getAutoCategory(post.title, post.text); // ТЕПЕРЬ ПЕР�
     </a>
 `}).join('');
 
-
- if (append) {
+// СТРАБАТЫВАЕТ ЕСЛИ НАЖАЛ ПОКАЗАТЬ ЕЩЕ, ДОРИСОВЫВАЕТ ЕЩЕ 9 СТАТЕЙ
+    if (append) {
         grid.insertAdjacentHTML('beforeend', postsHtml);
+
+
+        // СТРАБАТЫВАЕТ ЕСЛИ ПЕРЕКЛЮЧИЛ ФИЛЬТР И ЧТОБЫ НЕ ОТРЫСОСВЫВАТЬ ВСЕ СТАТЬИ 
+
     } else {
         grid.innerHTML = postsHtml;
     }
 
     // ШАГ 3: Управление кнопкой
     if (loadMoreContainer) {
+        // ЕСЛИ ПОКАЗАНЫ ВСЕ КАРТОЧКИ, КНОПКА ПОКАЗАТЬ ЕЩЕ УБИРАЕТСЯ, ЕСЛИ ЕЩЕ МОЖНО ПОКАЗАТЬ, ТО ОНА ОСТАЁТСЯ
+
         loadMoreContainer.style.display = (displayedCount >= (window.currentFilteredCount || postsToRender.length)) ? 'none' : 'block';
     }
 
-    // if (loadMoreContainer) {
-    //     if (displayedCount >= postsToRender.length) {
-    //         loadMoreContainer.style.display = 'none';
-    //     } else {
-    //         loadMoreContainer.style.display = 'block';
-    //     }
-    // }
-// Ищем ТОЛЬКО ТЕ карточки, которые МЫ ТОЛЬКО ЧТО ДОБАВИЛИ
-const newCards = grid.querySelectorAll('.news-card:not(.visible)');
 
-newCards.forEach((card, index) => {
-    setTimeout(() => {
-        card.classList.add('visible');
-    }, index * 50); // Уменьшил до 50мс для сочности и скорости
-});
+    // Ищем ТОЛЬКО ТЕ карточки, которые МЫ ТОЛЬКО ЧТО ДОБАВИЛИ КНОПКОЙ ПОКАЗАТЬ ЕЩЕ, ДЕЛАЕМ ИМ АНИМАЦИЮ ПОЯВЛЕНИЯ
+    const newCards = grid.querySelectorAll('.news-card:not(.visible)');
 
-    }
+    newCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('visible');
+        }, index * 50); // Уменьшил до 50мс для сочности и скорости
+    });
+
+}
 
 
 
-// 2. ФУНКЦИЯ ДЛЯ КНОПКИ "ПОКАЗАТЬ ЕЩЕ"
+// ФУНКЦИЯ КОТОРАЯ С САМОГО НАЧАЛА ОТОБРАЖАЕТ ТОЛЬКО 9 КАРТОЧЕК И КОГДА НАЖИМАЕМ КНОПКУ ПОКАЗАТЬ ЕШЕ ОНА ПРОГОНАЯЕТ КАРТОЧКИ ЧЕРЕЗ ФИЛЬТР ТЭГА, ЧТОБЫ НЕ ОТКРЫТЬ ЕЩЕ 8 КАРТОЧЕК ДРУГОГО ФИЛЬТРА И ОТКРЫВАЕТ ЕЩЕ 8 КАРТОЧЕК С ТАКИМ ЖЕ ФИЛЬТРОМ
+
 function loadMore() {
     const start = displayedCount;
-    displayedCount += 9; // Прибавляем 9
+    displayedCount += 8; // Прибавляем 8
     const end = displayedCount;
     // Чтобы кнопка работала с учетом фильтра, нам нужно знать, какой тег сейчас выбран
     const activeBtn = document.querySelector('.filter-btn.active');
     const currentTag = activeBtn ? activeBtn.innerText.replace('#', '') : 'Все';
-    
+
     // Фильтруем данные заново и рисуем новую порцию
-    const filtered = (currentTag === 'Все') 
-        ? allPostsData 
+    const filtered = (currentTag === 'Все')
+        ? allPostsData
         : allPostsData.filter(post => getAutoCategory(post.title) === currentTag);
-        window.currentFilteredCount = filtered.length;
- const nextChunk = filtered.slice(start, end);
-      renderFilteredPosts(nextChunk, true);
+    window.currentFilteredCount = filtered.length;
+    const nextChunk = filtered.slice(start, end);
+    renderFilteredPosts(nextChunk, true);
 }
 
-// 2. Функция загрузки (теперь она чистая и аккуратная)
+
+
+// ФУНКЦИЯ КОТОРАЯ БЕРЕТ ИЗ ФАЙЛА ГИТХАБ ТЕКСТ, ЗАГОЛОВОК, КАРТИНКУ, ЛАЙКИ СОХРАНЯЕТ ИХ В МАССИВ АЛЛ ПОСТ ДАТА И ВСТАВЛЯЕТ ИХ НА СТРАНИЦУ С ПОМОЩЬЮ ФУНКЦИИ renderFilteredPosts 
+
 async function loadPosts() {
     try {
         const response = await fetch(`https://raw.githubusercontent.com/Sozdatel1/PRO-info/main/posts.json?v=${Date.now()}`);
-        allPostsData = await response.json(); 
+        allPostsData = await response.json();
 
 
         // Рисуем всё сразу
-        renderFilteredPosts(allPostsData); 
+        renderFilteredPosts(allPostsData);
         renderTrending(allPostsData);
-         if (typeof updateHubStats === 'function') {
+        if (typeof updateHubStats === 'function') {
             updateHubStats(allPostsData);
         }
-      
+
 
     } catch (err) {
         console.error("Ошибка загрузки:", err);
     }
 }
 
-// 3. Функция фильтрации (вызывается при клике на кнопки в HTML)
-function filterByTag(tag, button) {
-    // Подсветка кнопок
-    displayedCount = 9;
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
 
-    // Логика фильтра
-    const filtered = (tag === 'Все') 
-        ? allPostsData 
-        : allPostsData.filter(post => getAutoCategory(post.title) === tag);
 
-    renderFilteredPosts(filtered);
-    updateHubStats(allPostsData);
-}
-
-// Запуск
+// Запуск ОТРИСОВКИ
 document.addEventListener('DOMContentLoaded', loadPosts);
 
 
@@ -260,7 +260,7 @@ loadFullArticle();
 async function likePost(id, event) {
     // Находим кнопку (если кликнули по иконке внутри неё — берем родителя)
     const likeBtn = event?.currentTarget || document.querySelector(`[onclick*="${id}"]`);
-     if (likeBtn) {
+    if (likeBtn) {
         likeBtn.style.transform = 'scale(1.2) rotate(-5deg)';
         setTimeout(() => likeBtn.style.transform = 'scale(1) rotate(0)', 200);
     }
@@ -314,7 +314,20 @@ async function likePost(id, event) {
     }
 }
 
-// СНАЧАЛА МЫ ПОСЫЛАЕМ ДАННЫЕ НА СЕРВЕР, ОН ПОСЫЛЕТ ИХ В РЕПО ГИТХАБ С ПОМОЩЬЮ ТОКЕНА ГИТХАБ, А ПОТОМ МЫ ЗАПРАШИВАЕМ ДАННЫЕ ИЗ ФАЙЛА
+
+// --------------------------------------------------------
+
+
+// СНАЧАЛА МЫ ПОСЫЛАЕМ ДАННЫЕ НА СЕРВЕР РЕНДЕР, 
+// ОН ПОСЫЛЕТ ИХ В РЕПО ГИТХАБ С ПОМОЩЬЮ ТОКЕНА ГИТХАБ, 
+// А ПОТОМ МЫ ЗАПРАШИВАЕМ ДАННЫЕ ИЗ ФАЙЛА
+
+// ------------------------------------------------------------
+
+
+
+// ФУНКЦИЯ КОТОРАЯ СОЗДАЕТ ТОП 3 САМЫХ ЛУЧШИХ СТАТЬИ НА ГЛАВНОЙ
+
 function renderTrending(posts) {
     const trendingList = document.getElementById('trending-list');
     if (!trendingList) return;
@@ -335,16 +348,30 @@ function renderTrending(posts) {
 }
 
 
+
+// ФУНКЦИЯ КОТОРАЯ СОРТИРУЕТ СТАТЬИ ПО ТЭГАМ КОГДА КЛИКАЮТ НА ФИЛЬТР ОПРЕДЕЛЕННОГО ТЭГА ТО ОТОБРАЖАЮТСЯ СТАТЬИ С ЭТИМ ТЭГОМ
+
+
 function filterByTag(tag, button) {
-    // 1. Подсвечиваем кнопку (визуал)
+    // 1. Сбрасываем счетчик, чтобы снова видеть первые 9 постов
+    displayedCount = 9;
+
+
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
 
-    // 2. Логика выбора: если "Все" - берем всё, если нет - фильтруем по тегу
-    const filtered = (tag === 'Все') 
-        ? allPostsData 
-        : allPostsData.filter(post => getAutoCategory(post.title) === tag);
+    // Очищаем пришедший тег от решетки (на всякий случай)
+    const target = tag.replace('#', '').trim();
 
-    // 3. Просим "рисовальщика" показать результат
-    renderFilteredPosts(filtered);
+    // 3. Логика выбора: передаем И заголовок, И текст
+    const filtered = (target === 'Все')
+        ? allPostsData
+        : allPostsData.filter(post => {
+            // ВАЖНО: передаем два аргумента в getAutoCategory
+            const category = getAutoCategory(post.title, post.text).trim();
+            return category === target;
+        });
+
+    // 4. Отрисовываем результат (false - чтобы стереть старое и нарисовать новое)
+    renderFilteredPosts(filtered, false);
 }

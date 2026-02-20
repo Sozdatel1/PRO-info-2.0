@@ -1,7 +1,8 @@
 /* КОНТЕЙНЕР ТОПА */
 .trending-box {
     padding: 20px;
-    border-left: 4px solid #41cfff; /* Голубая полоска как у скролла */
+    border-left: 4px solid #41cfff;
+    /* Голубая полоска как у скролла */
 }
 
 .trending-box h3 {
@@ -20,7 +21,8 @@
     color: #444;
     padding: 12px;
     margin-bottom: 8px;
-    background: rgba(255, 255, 255, 0.5); /* Полупрозрачный фон */
+    background: rgba(255, 255, 255, 0.5);
+    /* Полупрозрачный фон */
     border-radius: 10px;
     transition: all 0.3s ease;
     border: 1px solid transparent;
@@ -28,7 +30,8 @@
 
 .trending-item:hover {
     background: #fff;
-    transform: translateX(5px); /* Легкий сдвиг вправо */
+    transform: translateX(5px);
+    /* Легкий сдвиг вправо */
     border-color: #41cfff;
     box-shadow: 0 4px 12px rgba(65, 207, 255, 0.1);
 }
@@ -36,7 +39,8 @@
 /* ИНФОРМАЦИЯ ВНУТРИ */
 .trending-info {
     display: flex;
-    flex-direction: column; /* Текст над лайками */
+    flex-direction: column;
+    /* Текст над лайками */
     gap: 5px;
 }
 
@@ -54,7 +58,8 @@
 .trending-likes {
     font-size: 12px;
     font-weight: bold;
-    color: #ff4d4d; /* Красные лайки */
+    color: #ff4d4d;
+    /* Красные лайки */
     display: flex;
     align-items: center;
     gap: 4px;
@@ -62,6 +67,7 @@
 
 /* Номер или корона для ТОП-1 */
 .trending-item:first-child {
-    background: linear-gradient(90deg, rgba(65, 207, 255, 0.1) 0%, rgba(255,255,255,0.5) 100%);
-    border-left: 3px solid #ffd700; /* Золотой акцент для лидера */
+    background: linear-gradient(90deg, rgba(65, 207, 255, 0.1) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border-left: 3px solid #ffd700;
+    /* Золотой акцент для лидера */
 }

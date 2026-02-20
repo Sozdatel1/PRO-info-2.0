@@ -1,13 +1,15 @@
 .fact-box {
     text-align: center;
-    border-left: 4px solid #41cfff; /* Голубой акцент как у скролла */
+    border-left: 4px solid #41cfff;
+    /* Голубой акцент как у скролла */
 }
 
 #random-fact {
     font-size: 15px;
     line-height: 1.5;
     color: #444;
-    min-height: 60px; /* Чтобы карточка не прыгала при разной длине текста */
+    min-height: 60px;
+    /* Чтобы карточка не прыгала при разной длине текста */
     transition: opacity 0.3s ease;
     margin: 15px 0;
 }

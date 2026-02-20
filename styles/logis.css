@@ -15,7 +15,8 @@
 .stat-value {
     font-size: 20px;
     font-weight: 900;
-    color: #41cfff; /* Твой неоновый голубой */
+    color: #41cfff;
+    /* Твой неоновый голубой */
     text-shadow: 0 0 10px rgba(65, 207, 255, 0.3);
 }
 

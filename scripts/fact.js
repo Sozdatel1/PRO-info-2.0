@@ -15,7 +15,7 @@ function showNextFact() {
 
     // Выбираем рандомный индекс из массива
     const randomIndex = Math.floor(Math.random() * facts.length);
-    
+
     // Плавная смена текста
     factElement.style.opacity = 0;
     setTimeout(() => {

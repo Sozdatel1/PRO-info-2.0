@@ -1,11 +1,13 @@
 #likeBtn {
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: inline-flex; /* Чтобы элементы внутри (span) не разлетались */
+    display: inline-flex;
+    /* Чтобы элементы внутри (span) не разлетались */
     align-items: center;
 }
 
 #likeBtn:active {
-    transform: scale(0.9); /* Сжимается при нажатии */
+    transform: scale(0.9);
+    /* Сжимается при нажатии */
 }
 
 /* Анимация для самого кружка с иконкой */
@@ -14,6 +16,8 @@
 }
 
 #likeBtn:hover span:first-child {
-    background-color: #ff4500 !important; /* Становится ярче при наведении */
-    transform: rotate(-10deg); /* Слегка наклоняется */
+    background-color: #ff4500 !important;
+    /* Становится ярче при наведении */
+    transform: rotate(-10deg);
+    /* Слегка наклоняется */
 }

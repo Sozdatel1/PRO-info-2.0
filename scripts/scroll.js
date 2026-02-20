@@ -1,4 +1,4 @@
-(function() {
+(function () {
     function paint() {
         const progress = document.getElementById("scrollProgress");
         if (!progress) {
@@ -8,7 +8,7 @@
 
         // Берем скролл отовсюду, где он может быть
         const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        
+
         // Берем МАКСИМАЛЬНУЮ высоту, которую найдем
         const height = Math.max(
             document.body.scrollHeight, document.documentElement.scrollHeight,

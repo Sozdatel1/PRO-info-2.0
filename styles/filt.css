@@ -4,12 +4,18 @@
     gap: 12px;
     margin-bottom: 30px;
     padding: 15px !important;
-    flex-wrap: wrap; 
-    overflow-x: auto; /* Скролл, если кнопок станет много */
-    scrollbar-width: none; /* Прячем некрасивый скролл в Firefox */
+    flex-wrap: wrap;
+    overflow-x: auto;
+    /* Скролл, если кнопок станет много */
+    scrollbar-width: none;
+    /* Прячем некрасивый скролл в Firefox */
 }
 
-.tag-filters::-webkit-scrollbar { display: none; } /* Прячем скролл в Chrome/Safari */
+.tag-filters::-webkit-scrollbar {
+    display: none;
+}
+
+/* Прячем скролл в Chrome/Safari */
 
 /* ОБЩИЙ СТИЛЬ КНОПОК */
 .filter-btn {
@@ -21,7 +27,7 @@
     font-size: 13px;
     font-weight: 700;
     color: #555;
- 
+
     flex-shrink: 0;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -40,8 +46,9 @@
     background: #41cfff;
     color: white;
     border-color: #41cfff;
-    box-shadow: 0 4px 15px rgba(65, 207, 255, 0.4), 
-                0 0 5px rgba(0, 255, 65, 0.2); /* Легкий отсвет зеленого */
+    box-shadow: 0 4px 15px rgba(65, 207, 255, 0.4),
+        0 0 5px rgba(0, 255, 65, 0.2);
+    /* Легкий отсвет зеленого */
     transform: translateY(-2px);
 }
 
@@ -52,4 +59,3 @@
         font-size: 12px;
     }
 }
-
