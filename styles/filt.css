@@ -9,6 +9,7 @@
     /* Скролл, если кнопок станет много */
     scrollbar-width: none;
     /* Прячем некрасивый скролл в Firefox */
+
 }
 
 .tag-filters::-webkit-scrollbar {
