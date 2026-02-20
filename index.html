@@ -4,21 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Главная | PRO-info</title>
+  <title>InfoTable | Твой гид по IT и миру</title>
+
   <link rel="stylesheet" href="/styles/main.css">
   <link rel="stylesheet" href="/styles/staty.css">
   <link rel="stylesheet" href="/styles/burger.css">
-    <link rel="stylesheet" href="/styles/popul.css">
-        <link rel="stylesheet" href="/styles/fact.css">
-     <link rel="stylesheet" href="/styles/logis.css">
-          <link rel="stylesheet" href="/styles/holiday.css">
-                  <link rel="stylesheet" href="/styles/filt.css">
-    <!-- <link rel="stylesheet" href="styles/content.css" id="theme"> -->
-  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="/styles/popul.css">
+  <link rel="stylesheet" href="/styles/fact.css">
+  <link rel="stylesheet" href="/styles/logis.css">
+  <link rel="stylesheet" href="/styles/holiday.css">
+  <link rel="stylesheet" href="/styles/filt.css">
+  <link rel="icon" type="image/png" href="/img/IT.png?v=777">
+
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -34,24 +32,24 @@
     <!-- ЛЕВАЯ КОЛОНКА -->
     <aside class="left-sidebar">
       <div class="glass-card">
-       
-        
-  <div class="pogoda-mobile">
-    <a id="ms-informer-link-2312b3bf0300f402069ab4ae4b940f7f" class="ms-informer-link"
-      href="https://www.meteoservice.ru/weather/overview/dubna">Погода в Дубне</a>
-    <script class="ms-informer-script"
-      src="https://www.meteoservice.ru/informer/script/2312b3bf0300f402069ab4ae4b940f7f"></script>
-  </div>
+
+
+        <div class="pogoda-mobile">
+          <a id="ms-informer-link-2312b3bf0300f402069ab4ae4b940f7f" class="ms-informer-link"
+            href="https://www.meteoservice.ru/weather/overview/dubna">Погода в Дубне</a>
+          <script class="ms-informer-script"
+            src="https://www.meteoservice.ru/informer/script/2312b3bf0300f402069ab4ae4b940f7f"></script>
+        </div>
       </div>
 
-<div class="glass-card fact-box">
-    <h3>💡 Знаете ли вы?</h3>
-    <p id="random-fact">Загрузка интересного факта...</p>
-    <button onclick="showNextFact()" class="next-fact-btn">Ещё факт</button>
-</div>
+      <div class="glass-card fact-box">
+        <h3>💡 Знаете ли вы?</h3>
+        <p id="random-fact">Загрузка интересного факта...</p>
+        <button onclick="showNextFact()" class="next-fact-btn">Ещё факт</button>
+      </div>
 
       <div class="glass-card">
-    
+
         <div id="vacation-timer">Загрузка каникул...</div>
         <img src="/img/img_stylez/каникулы.png" style="width: 50%; margin-top: 10px;" alt="Каникулы">
       </div>
@@ -69,60 +67,61 @@
       </div>
 
       <h2 style="margin-left: 10px;">Свежие статьи</h2>
-    <div class="tag-filters glass-card">
-    <span style="font-size: 11px; font-weight: 900; opacity: 0.4; margin-right: 10px; align-self: center;">ФИЛЬТР:</span>
-    <button class="filter-btn active" onclick="filterByTag('Все', this)">#Все</button>
-    <button class="filter-btn" onclick="filterByTag('Код', this)">#Код</button>
-    <button class="filter-btn" onclick="filterByTag('Игры', this)">#Игры</button>
-    <button class="filter-btn" onclick="filterByTag('Природа', this)">#Природа</button>
-</div>
+      <div class="tag-filters glass-card">
+        <span
+          style="font-size: 11px; font-weight: 900; opacity: 0.4; margin-right: 10px; align-self: center;">ФИЛЬТР:</span>
+        <button class="filter-btn active" onclick="filterByTag('Все', this)">#Все</button>
+        <button class="filter-btn" onclick="filterByTag('Код', this)">#Код</button>
+        <button class="filter-btn" onclick="filterByTag('Игры', this)">#Игры</button>
+        <button class="filter-btn" onclick="filterByTag('Природа', this)">#Природа</button>
+      </div>
 
 
       <div id="dynamic-cards">
         <!-- Сюда JS загрузит посты -->
       </div>
-     
-   <div id="load-more-container" style="text-align: center; margin: 30px 0;">
-    <button type="button" class="filter-btn active" onclick="loadMore()">
-        ПОКАЗАТЬ ЕЩЕ
-    </button>
 
-    </div>
+      <div id="load-more-container" style="text-align: center; margin: 30px 0;">
+        <button type="button" class="filter-btn active" onclick="loadMore()">
+          ПОКАЗАТЬ ЕЩЕ
+        </button>
+
+      </div>
 
     </main>
 
     <!-- ПРАВАЯ КОЛОНКА (ЧАТ) -->
     <aside class="right-sidebar">
       <div class="glass-card trending-box">
-    <h3>🔥 Популярное</h3>
-    <div id="trending-list">
-        <!-- Сюда JS вставит топ-посты -->
-    </div>
-</div>
-    <div class="glass-card stats-box">
-    <h3>📊 Статистика</h3>
-    <div class="stats-grid">
-        <div class="stat-item">
+        <h3>🔥 Популярное</h3>
+        <div id="trending-list">
+          <!-- Сюда JS вставит топ-посты -->
+        </div>
+      </div>
+      <div class="glass-card stats-box">
+        <h3>📊 Статистика</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
             <span class="stat-value" id="stat-posts">0</span>
             <span class="stat-label">Статей</span>
-        </div>
-        <div class="stat-item">
+          </div>
+          <div class="stat-item">
             <span class="stat-value" id="stat-likes">0</span>
             <span class="stat-label">Лайков</span>
+          </div>
+
         </div>
-        
-    </div>
-</div>
-<div class="glass-card holiday-widget">
-    <div class="calendar-leaf">
-        <div class="leaf-top" id="leaf-month">ФЕВРАЛЬ</div>
-        <div class="leaf-body" id="leaf-day">19</div>
-    </div>
-    <div class="holiday-info">
-        <span class="holiday-label">СЕГОДНЯ:</span>
-        <div id="holiday-text" class="holiday-main">Загрузка...</div>
-    </div>
-</div>
+      </div>
+      <div class="glass-card holiday-widget">
+        <div class="calendar-leaf">
+          <div class="leaf-top" id="leaf-month">ФЕВРАЛЬ</div>
+          <div class="leaf-body" id="leaf-day">19</div>
+        </div>
+        <div class="holiday-info">
+          <span class="holiday-label">СЕГОДНЯ:</span>
+          <div id="holiday-text" class="holiday-main">Загрузка...</div>
+        </div>
+      </div>
 
     </aside>
   </div>
@@ -131,13 +130,13 @@
 
 
 
-  
 
 
 
 
 
-<footer class="footer">
+
+  <footer class="footer">
     <p>&copy; 2025 PRO-info.</p>
     <a href="https://github.com/Sozdatel1/Sozdatel1.github.io"><img src="/img/Без названия-Photoroom.png"
         width="60" /></a>
@@ -149,7 +148,7 @@
   <script src="/scripts/chat.js"></script>
   <script src="/scripts/header.js"></script>
   <script src="/scripts/fact.js"></script>
-   <script src="/scripts/logis.js"></script>
+  <script src="/scripts/logis.js"></script>
 
 </body>
 

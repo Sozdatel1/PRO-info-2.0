@@ -63,15 +63,18 @@ let allPostsData = [];
 //     if (!grid) return;
 let displayedCount = 9; 
 // 1. Функция-"рисовальщик" (она должна быть видна всем)
-function renderFilteredPosts(postsToRender) {
+function renderFilteredPosts(postsToRender , append = false) {
     const grid = document.getElementById('dynamic-cards');
     const loadMoreContainer = document.getElementById('load-more-container');
     if (!grid) return;
 
+    const dataToDraw = append ? postsToRender : postsToRender.slice(0, displayedCount);
+    // const partToRender = postsToRender.slice(0, displayedCount);
 
-    const partToRender = postsToRender.slice(0, displayedCount);
-
-    grid.innerHTML =  partToRender.map(post => {
+    // grid.innerHTML =  partToRender.map(post => {
+    //     const category = getAutoCategory(post.title);
+    //     return `
+    const postsHtml = dataToDraw.map(post => {
         const category = getAutoCategory(post.title);
         return `
    
@@ -108,26 +111,44 @@ function renderFilteredPosts(postsToRender) {
         </div>
     </a>
 `}).join('');
-    if (loadMoreContainer) {
-        if (displayedCount >= postsToRender.length) {
-            loadMoreContainer.style.display = 'none';
-        } else {
-            loadMoreContainer.style.display = 'block';
-        }
+
+
+ if (append) {
+        grid.insertAdjacentHTML('beforeend', postsHtml);
+    } else {
+        grid.innerHTML = postsHtml;
     }
-const cards = document.querySelectorAll('.news-card');
-cards.forEach((card, index) => {
+
+    // ШАГ 3: Управление кнопкой
+    if (loadMoreContainer) {
+        loadMoreContainer.style.display = (displayedCount >= (window.currentFilteredCount || postsToRender.length)) ? 'none' : 'block';
+    }
+
+    // if (loadMoreContainer) {
+    //     if (displayedCount >= postsToRender.length) {
+    //         loadMoreContainer.style.display = 'none';
+    //     } else {
+    //         loadMoreContainer.style.display = 'block';
+    //     }
+    // }
+// Ищем ТОЛЬКО ТЕ карточки, которые МЫ ТОЛЬКО ЧТО ДОБАВИЛИ
+const newCards = grid.querySelectorAll('.news-card:not(.visible)');
+
+newCards.forEach((card, index) => {
     setTimeout(() => {
         card.classList.add('visible');
-    }, index * 200); // Каждая следующая карточка на 0.1 сек позже
+    }, index * 50); // Уменьшил до 50мс для сочности и скорости
 });
+
     }
 
 
 
 // 2. ФУНКЦИЯ ДЛЯ КНОПКИ "ПОКАЗАТЬ ЕЩЕ"
 function loadMore() {
+    const start = displayedCount;
     displayedCount += 9; // Прибавляем 9
+    const end = displayedCount;
     // Чтобы кнопка работала с учетом фильтра, нам нужно знать, какой тег сейчас выбран
     const activeBtn = document.querySelector('.filter-btn.active');
     const currentTag = activeBtn ? activeBtn.innerText.replace('#', '') : 'Все';
@@ -136,8 +157,9 @@ function loadMore() {
     const filtered = (currentTag === 'Все') 
         ? allPostsData 
         : allPostsData.filter(post => getAutoCategory(post.title) === currentTag);
-        
-    renderFilteredPosts(filtered);
+        window.currentFilteredCount = filtered.length;
+ const nextChunk = filtered.slice(start, end);
+      renderFilteredPosts(nextChunk, true);
 }
 
 // 2. Функция загрузки (теперь она чистая и аккуратная)
@@ -146,10 +168,11 @@ async function loadPosts() {
         const response = await fetch(`https://raw.githubusercontent.com/Sozdatel1/PRO-info/main/posts.json?v=${Date.now()}`);
         allPostsData = await response.json(); 
 
+
         // Рисуем всё сразу
         renderFilteredPosts(allPostsData); 
         renderTrending(allPostsData);
-        updateHubStats(allPostsData);
+      
 
     } catch (err) {
         console.error("Ошибка загрузки:", err);
@@ -221,7 +244,10 @@ loadFullArticle();
 async function likePost(id, event) {
     // Находим кнопку (если кликнули по иконке внутри неё — берем родителя)
     const likeBtn = event?.currentTarget || document.querySelector(`[onclick*="${id}"]`);
-
+     if (likeBtn) {
+        likeBtn.style.transform = 'scale(1.2) rotate(-5deg)';
+        setTimeout(() => likeBtn.style.transform = 'scale(1) rotate(0)', 200);
+    }
     // Защита от спам-кликов, пока идет запрос
     if (likeBtn && (likeBtn.disabled || likeBtn.dataset.loading === "true")) return;
 

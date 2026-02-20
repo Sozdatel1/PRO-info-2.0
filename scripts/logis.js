@@ -15,3 +15,4 @@ function updateHubStats(posts) {
     // 3. Для просмотров (пока у тебя нет бэкенда для них, сделаем красивый рандом 
  
 }
+  updateHubStats(allPostsData);

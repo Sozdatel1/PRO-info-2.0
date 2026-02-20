@@ -3,11 +3,13 @@ if (header) {
     header.innerHTML = `
 
 <header class="header-content">
-    <div class="logo">
-        <a href="index.html">
-            
-        </a>
-    </div>
+
+<div class="logo">
+    <a href="index.html"><span class="logo-neon">INFO</span>TABLE</a>
+</div>
+
+
+ <div class="nav-divider"></div> <!-- ВОТ ОНА -->
 
     <!-- Кнопка бургер (появится на моилах) -->
     <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
