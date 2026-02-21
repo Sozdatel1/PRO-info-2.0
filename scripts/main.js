@@ -183,50 +183,51 @@ updateVacationCountdown();
 
 
 function updateHoliday() {
-    const monthElement = document.getElementById('leaf-month');
-    const dayElement = document.getElementById('leaf-day');
-    const holidayElement = document.getElementById('holiday-text'); // Если он остался для текста
- 
-    const now = new Date();
-    
-    // 1. Выводим число
-    if (dayElement) {
-        dayElement.innerText = now.getDate();
+  const monthElement = document.getElementById('leaf-month');
+  const dayElement = document.getElementById('leaf-day');
+  const holidayElement = document.getElementById('holiday-text'); // Если он остался для текста
+
+  const now = new Date();
+
+  // 1. Выводим число
+  if (dayElement) {
+    dayElement.innerText = now.getDate();
+  }
+
+  // 2. Выводим месяц буквами и делаем его ЗАГЛАВНЫМИ
+  if (monthElement) {
+    const monthName = now.toLocaleString('ru-RU', { month: 'long' });
+    monthElement.innerText = monthName.toUpperCase(); // "ФЕВРАЛЬ"
+  }
+
+  // 3. Логика праздников (твой предыдущий код)
+  const day = now.getDate();
+  const month = now.getMonth() + 1;
+  const key = `${day}-${month}`;
+
+  const specialHolidays = {
+    "1-1": "Новый год! 🎄",
+    "7-1": "Рождество 🌟",
+    "23-2": "День защитника Отечества 🛡️",
+    "8-3": "Международный женский день 💐",
+    "12-4": "День космонавтики 🚀",
+    "1-5": "Праздник Весны и Труда 🌱",
+    "9-5": "День Победы 🎖️",
+    "13-9": "День программиста (256-й день) 💻",
+    "31-12": "Новый год уже близко! 🥂"
+  };
+
+  if (holidayElement) {
+    if (specialHolidays[key]) {
+      holidayElement.innerText = specialHolidays[key];
+    } else {
+      const dailyStatuses = [
+        "День планирования 🧘‍♂️", "Понедельник 📝", "Вторник 🚀",
+        "Среда 🌍", "Четверг 💻", "Пятница ⚡️", "Суббота 📚"
+      ];
+      holidayElement.innerText = dailyStatuses[now.getDay()];
     }
- 
-    // 2. Выводим месяц буквами и делаем его ЗАГЛАВНЫМИ
-    if (monthElement) {
-        const monthName = now.toLocaleString('ru-RU', { month: 'long' });
-        monthElement.innerText = monthName.toUpperCase(); // "ФЕВРАЛЬ"
-    }
- 
-    // 3. Логика праздников (твой предыдущий код)
-    const day = now.getDate();
-    const month = now.getMonth() + 1;
-    const key = `${day}-${month}`;
- 
-    const specialHolidays = {
-       "1-1": "Новый год! 🎄",
-        "7-1": "Рождество 🌟",
-        "23-2": "День защитника Отечества 🛡️",
-        "8-3": "Международный женский день 💐",
-        "12-4": "День космонавтики 🚀",
-        "1-5": "Праздник Весны и Труда 🌱",
-        "9-5": "День Победы 🎖️",
-        "13-9": "День программиста (256-й день) 💻",
-        "31-12": "Новый год уже близко! 🥂"
-    };
- 
-    if (holidayElement) {
-        if (specialHolidays[key]) {
-            holidayElement.innerText = specialHolidays[key];
-        } else {
-            const dailyStatuses = [
-                "День планирования 🧘‍♂️", "Понедельник 📝", "Вторник 🚀", 
-                "Среда 🌍", "Четверг 💻", "Пятница ⚡️", "Суббота 📚"
-            ];
-            holidayElement.innerText = dailyStatuses[now.getDay()];
-        }
-    }
+  }
 }
 
+updateHoliday()
