@@ -229,5 +229,4 @@ function updateHoliday() {
         }
     }
 }
- 
-document.addEventListener('DOMContentLoaded', updateHoliday);
+

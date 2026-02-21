@@ -1,3 +1,22 @@
+function calculateReadingTimeForCard(text) {
+    if (!text) return "0 мин.";
+    
+    // Считаем слова
+    const wordsCount = text.trim().split(/\s+/).length;
+    const wpm = 180; // слов в минуту
+    const minutes = Math.ceil(wordsCount / wpm);
+    
+    // Склонение (бонус!)
+    let suffix = 'мин.';
+    if (minutes === 1) suffix = 'минута';
+    if (minutes >= 2 && minutes <= 4) suffix = 'минуты';
+    
+    return `${minutes} ${suffix}`;
+}
+
+
+
+
 // ФУНКИЦЯ КОТОРАЯ ОТПРАВЛЯЕТ НА СЕРВЕР ТЕКСТ, КАРТИНКУ, И ЗАГОЛОВОГ СТАТЬИ
 
 async function publishPost() {
@@ -104,6 +123,26 @@ function renderFilteredPosts(postsToRender, append = false) {
         <div class="news-card">
 
         <span class="auto-tag">#${category}</span>
+        <span id="reading-time-${post.id}" style=" position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #0044ff !important;
+            /* Твой неоновый голубой */
+            color: white !important;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 100;
+
+            /* ГЛАВНОЕ: Отключаем скрытие */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
+            ⏳ ${calculateReadingTimeForCard(post.text)}
+            </span>
             <div class="card-icon">
             ${post.image ? `<img src="${post.image}" alt="icon" style="margin-bottom: 10px;
      background: #ffe5e000;
@@ -130,11 +169,15 @@ function renderFilteredPosts(postsToRender, append = false) {
     overflow: hidden;   
     text-overflow: ellipsis; /* Рисует три точки, если текст слишком длинный */">Читать статью...</span>
             </p>
+
+            
+
+
         </div>
     </a>
 `}).join('');
 
-// СТРАБАТЫВАЕТ ЕСЛИ НАЖАЛ ПОКАЗАТЬ ЕЩЕ, ДОРИСОВЫВАЕТ ЕЩЕ 9 СТАТЕЙ
+    // СТРАБАТЫВАЕТ ЕСЛИ НАЖАЛ ПОКАЗАТЬ ЕЩЕ, ДОРИСОВЫВАЕТ ЕЩЕ 9 СТАТЕЙ
     if (append) {
         grid.insertAdjacentHTML('beforeend', postsHtml);
 
@@ -201,7 +244,9 @@ async function loadPosts() {
         if (typeof updateHubStats === 'function') {
             updateHubStats(allPostsData);
         }
-
+        if (typeof calculateReadingTime === 'function') {
+            calculateReadingTime();
+        }
 
     } catch (err) {
         console.error("Ошибка загрузки:", err);
@@ -286,37 +331,37 @@ async function likePost(id, event) {
     likeCountSpan.innerText = originalLikes + 1;
 
     try {
-            console.log("Нажали лайк, пускаем салют..."); // Проверка в консоли
-        
+        console.log("Нажали лайк, пускаем салют..."); // Проверка в консоли
+
         // ВЫЗЫВАЕМ САЛЮТ СРАЗУ (МГНОВЕНО!)
         if (typeof confetti === 'function') {
-confetti({
-     particleCount: 2000,    // 5000 — это перебор, 2000 — идеально густо
-    spread: 360,      
-      startVelocity: 1000,      // Взрыв во все стороны
-    startVelocity: 40,      // Мощный толчок, чтобы разлетелись дальше
-    origin: { x: 0.5, y: 0.4 }, // Чуть выше центра, чтобы летели дольше
-    
-    // ДОБАВЛЯЕМ ХАОС:
-    drift: 0,               // Легкий "ветер" в сторону, чтобы круг ломался
-    ticks: 400,             // Частицы живут дольше
-    gravity: 0.5,           // Гравитация слабее — они ПАРЯТ, а не падают камнем
-    scalar: 1.4,            // Крупные куски радуги
-    
-    // ВОТ ОНА, РАДУГА:
-    colors: [
-        '#ff0000', // Красный
-        '#ff7f00', // Оранжевый
-        '#ffff00', // Желтый
-        '#00ff00', // Зеленый
-        '#0000ff', // Синий
-        '#4b0082', // Индиго
-        '#9400d3', // Фиолетовый
-        '#ffffff'  // Белый для блеска
-    ],
-    
-   
-});
+            confetti({
+                particleCount: 2000,    // 5000 — это перебор, 2000 — идеально густо
+                spread: 360,
+                startVelocity: 1000,      // Взрыв во все стороны
+                startVelocity: 40,      // Мощный толчок, чтобы разлетелись дальше
+                origin: { x: 0.5, y: 0.4 }, // Чуть выше центра, чтобы летели дольше
+
+                // ДОБАВЛЯЕМ ХАОС:
+                drift: 0,               // Легкий "ветер" в сторону, чтобы круг ломался
+                ticks: 400,             // Частицы живут дольше
+                gravity: 0.5,           // Гравитация слабее — они ПАРЯТ, а не падают камнем
+                scalar: 1.4,            // Крупные куски радуги
+
+                // ВОТ ОНА, РАДУГА:
+                colors: [
+                    '#ff0000', // Красный
+                    '#ff7f00', // Оранжевый
+                    '#ffff00', // Желтый
+                    '#00ff00', // Зеленый
+                    '#0000ff', // Синий
+                    '#4b0082', // Индиго
+                    '#9400d3', // Фиолетовый
+                    '#ffffff'  // Белый для блеска
+                ],
+
+
+            });
 
 
         }

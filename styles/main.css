@@ -8,6 +8,10 @@
             box-sizing: border-box;
         }
 
+        /* html {
+  height: 100%;} */
+
+
         body {
             /* background: linear-gradient(135deg, #ffffff 0%, #c5c5c5 100%); */
             background-image:
@@ -18,13 +22,20 @@
 
             background-attachment: fixed;
             /* Чтобы фон не уезжал при скролле */
-
-
+            /* cursor: url('/img/курсор.jfif') 0 0, pointer !important;
+            cursor: url('/img/cursor.png') 0 0, auto !important; */
             margin: 0;
+
+            display: grid;
+            grid-template-rows: auto 1fr auto;
             font-family: 'Roboto', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
         }
+
+
+
+
 
         .nav-divider {
             width: 1px;
@@ -131,7 +142,7 @@
         .glass-card {
             /* background: var(--glass);
             backdrop-filter: blur(10px); */
-             background-color: hsla(0, 0%, 100%, 0.551);
+            background-color: hsla(0, 0%, 100%, 0.668);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 15px;
@@ -152,23 +163,35 @@
         .admin-zone textarea {
             width: 100%;
             padding: 12px;
+            font-size: 12px;
             border-radius: 10px;
             border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .admin-zone input:focus,
+        .admin-zone textarea:focus {
+            border-color: #0400ff;
+            /* Добавляем мягкое свечение под цвет рамки */
+            box-shadow: 0 0 10px rgba(0, 234, 255, 0.184);
         }
 
         .publish-btn {
-            background: #7fffd4;
+            background: #7ffffd;
             border: none;
-            padding: 12px;
-            border-radius: 20px;
+            padding: 15px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            width: 80%;
+            margin: 0 auto;
         }
 
         .publish-btn:hover {
             transform: scale(1.05);
-            background: #66e0b8;
+            background: #66e0e0;
+            box-shadow: 0 0 20px rgba(0, 255, 200, 0.5)
         }
 
         /* СЕТКА СТАТЕЙ (чтобы были ровными) */
@@ -313,6 +336,26 @@
         /* 1. СТИЛЬ ТЕГА (Чтобы горел всегда) */
         .auto-tag {
             position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #41cfff !important;
+            /* Твой неоновый голубой */
+            color: white !important;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 100;
+
+            /* ГЛАВНОЕ: Отключаем скрытие */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        #reading-time {
+              position: absolute;
             top: 10px;
             right: 10px;
             background: #41cfff !important;
