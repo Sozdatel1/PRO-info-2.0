@@ -109,7 +109,7 @@
             transition: transform 0.6s ease;
             /* animation: hideHeader linear both;
   animation-timeline: scroll();
-  animation-range: 0px 20px; Анимация срабатывает на первых 200px скролла */
+  animation-range: 0px 20px; Анимация срабатывает на первых 200px скрола */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             z-index: 20000000000;
         }
